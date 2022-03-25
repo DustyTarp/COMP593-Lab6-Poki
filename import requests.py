@@ -31,12 +31,10 @@ def get_user_info(poki_num):
         return
 
 def get_title_and_text(user_dict):
-    title = user_dict['name'] + "'s Abilities\n"
-    body_text =("Ability: ") 
-    for pokiability in user_dict['abilities']:
-        body_text += pokiability['ability']['name'] + ", "
-    return(title, body_text)
-    
+    title = user_dict['name'] + "'s Geographical Location"
+    body_text = "Latitude: " + user_dict['address']['geo']['lat'] + "\n"
+    body_text += "Longitude: " + user_dict['address']['geo']['lng']
+    return (title, body_text)
 
 def post_to_pastebin(title, body_text):
     print("Posting to PasteBin...", end='')
@@ -45,7 +43,7 @@ def post_to_pastebin(title, body_text):
         'api_dev_key': "f4R0OTFza_qTQ1NZJYLjoCeLqoHQux4X",
         'api_option': 'paste',
         'api_paste_code': body_text,
-        'api_paste_name': title
+        'api_paste_format': title
     }
     URL = 'https://pastebin.com/api/api_post.php'
     response = requests.post(URL, data=params)
@@ -58,7 +56,3 @@ def post_to_pastebin(title, body_text):
         return response.status_code
 
 main()
-
-
-
-
